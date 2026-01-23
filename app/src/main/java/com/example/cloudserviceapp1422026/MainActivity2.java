@@ -60,8 +60,6 @@ public class MainActivity2 extends AppCompatActivity  implements OnMapReadyCallb
         });
 
 
-
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -71,15 +69,6 @@ public class MainActivity2 extends AppCompatActivity  implements OnMapReadyCallb
         txtLatitud = findViewById(R.id.txtLat);
         txtLongitud = findViewById(R.id.txtLng);
         sliderRadio = findViewById(R.id.sliderRadio);
-
-
-
-
-
-
-
-
-
 
     }
 

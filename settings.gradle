@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CloudServiceApp1422026"
+rootProject.name = "EvaluacionAppMovil_"
 include ':app'

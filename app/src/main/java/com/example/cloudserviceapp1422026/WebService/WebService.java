@@ -1,17 +1,5 @@
 package com.example.cloudserviceapp1422026.WebService;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -76,55 +64,7 @@ public class WebService extends AsyncTask<String, Long, String> {
     }
     @Override
     protected String doInBackground(String... params) {
-        String result = "";
         try {
-
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public void checkClientTrusted(X509Certificate[] chain, String authType) {}
-                        public void checkServerTrusted(X509Certificate[] chain, String authType) {}
-                        public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[0]; }
-                    }
-            };
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
-
-            URL url = new URL(this.url);
-            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod(params[0]);
-            if(params.length>2) conn.setRequestProperty("Authorization", params[1] + params[2]);
-            conn.setDoInput(true);
-
-            int responseCode = conn.getResponseCode();
-            InputStream inputStream = (responseCode == 200) ?
-                    conn.getInputStream() : conn.getErrorStream();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder sb = new StringBuilder();
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-
-            result = sb.toString();
-            reader.close();
-            inputStream.close();
-            conn.disconnect();
-
-        } catch (Exception e) {
-            Log.e("WebServiceSecure", "Error: " + e.getMessage(), e);
-            result = "ERROR: " + e.getMessage();
-        }
-
-        return result;
-
-        /*try {
 
             HttpRequest h=new HttpRequest(this.url,params[0]);
             for (int k=1;k< params.length;k+=2)
@@ -143,7 +83,7 @@ public class WebService extends AsyncTask<String, Long, String> {
         } catch (Exception e) {
             Log.e("doInBackground", e.getMessage());
             return "Error Exception " +  e.getMessage();
-        }*/
+        }
     }
     @Override
     protected void onPostExecute(String response) {
